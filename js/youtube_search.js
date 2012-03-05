@@ -48,7 +48,7 @@ $().ready(function(){
                   $('#main').prepend(player);
                   $('#q').select();
                 });
-              $('#main').prepend(div);
+              $('#player').after(div);
             }
           }
         });
@@ -56,9 +56,8 @@ $().ready(function(){
           .attr('class', 'thumbnail')
           .css({'width': '80px', 'height': '80px', 'float': 'left'})
           .css({'font-size': '40px', 'line-height': '40px', 'overflow': 'hidden'})
-          //.css({'border-style': 'solid', 'border-width': '5px'})
           .html(query);
-        $('#main').prepend(query_text);
+        $('#player').after(query_text);
       }
     });
     return false;

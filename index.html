@@ -10,24 +10,26 @@
     <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
   <![endif]-->
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/youtube_search.js"></script>
 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
     google.load("swfobject", "2.1");
   </script>    
+  <script type="text/javascript" src="js/youtube_search.js"></script>
+
 </head>
-<body>
-  <div class="container">
+<body style="margin-top:40px;">
+  <div style="width:960px;margin:0 auto;">
     <div class="span-24">
-      <h1>youtube-search</h1>
       <form id="form" action="#">
-        <input type="text" size="40" name="q" id="q"/>
-        <input type="submit" value="検索" />
+        <input type="text" style="width:302px; font-size:20px;" name="q" id="q"/>
       </form>
     </div>
-    <div id="main" class="span-24">
+    <div id="main">
+      <div id="player" style="width:320px; height:240px; float:left;">
+        <p style="font-size:80px; line-height:80px; font-weight:bold;">youtube search</p>
+      </div>
     </div>
   </div>
   <!-- end .container -->
