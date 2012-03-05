@@ -46,7 +46,6 @@ $().ready(function(){
                     .attr('frameborder', '0')
                     .css('float', 'left');
                   $('#main').prepend(player);
-                  $('#q').select();
                 });
               $('#player').after(div);
             }
@@ -62,5 +61,6 @@ $().ready(function(){
     });
     return false;
   });
-  $('#q').focus();
+  $(document).click(function () {$('#q').select();});
+  $('#q').select();
 });
