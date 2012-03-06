@@ -25,11 +25,13 @@ function updatePlayerInfo() {
   // Also check that at least one function exists since when IE unloads the
   // page, it will destroy the SWF before clearing the interval.
   if(ytplayer && ytplayer.getDuration) {
+    /*
     updateHTML("videoDuration", ytplayer.getDuration());
     updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
     updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
     updateHTML("startBytes", ytplayer.getVideoStartBytes());
     updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
+    */
   }
 }
 
@@ -38,8 +40,8 @@ function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById("ytPlayer");
   // This causes the updatePlayerInfo function to be called every 250ms to
   // get fresh data from the player
-  //setInterval(updatePlayerInfo, 250);
-  //updatePlayerInfo();
+  setInterval(updatePlayerInfo, 250);
+  updatePlayerInfo();
   //ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
 }
@@ -60,22 +62,28 @@ function loadPlayer(videoID) {
   // The video to load
   //var videoID = "MGt25mv4-2Q"
   // Lets Flash from another domain call JavaScript
-  var params = { allowScriptAccess: "always" };
+  var params = { allowScriptAccess: "always", allowFullScreen: "true" };
   // The element id of the Flash embed
   var atts = { id: "ytPlayer" };
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-  //swfobject.embedSWF("http://www.youtube.com/v/" + videoID + 
-  //                   "?version=3&enablejsapi=1&playerapiid=player1&autoplay=1", 
-  //                   "videoDiv", "400", "240", "9", null, null, params, atts);
+  swfobject.embedSWF("http://www.youtube.com/v/" + videoID + 
+                     "?version=3&enablejsapi=1&playerapiid=player1&autoplay=1&autohide=1&hd=1", 
+                     "videoDiv", width, height, "9", null, null, params, atts);
+  /* 
   swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                      "version=3&enablejsapi=1&playerapiid=player1", 
-                     "videoDiv", "480", "240", "9", null, null, params, atts);
+                     "videoDiv", width, height, "9", null, null, params, atts);
+  */
 }
 
+var width = 480;
+var height = 240;
 
 $().ready(function(){
+  /*
   loadPlayer();
   $('#ytPlayer').hide();
+  */
   $('#form').submit(function(){
     $('#main').children('a').fadeOut(function(){
       $('#main').html('');
@@ -95,8 +103,10 @@ $().ready(function(){
         var entries = json.results;
         var ids = {};
         if(!entries) return;
+        /*
         $("#message").hide();
         $("#ytPlayer").show();
+        */
         var divQuery = $('<div/>')
           .attr('class', 'thumbnail')
           .css({'width': '80px', 'height': '80px', 'float': 'left'})
@@ -120,11 +130,24 @@ $().ready(function(){
                 .css({'width': '80px', 'height': '80px', 'float': 'left'})
                 .css({'background-image': 'url("http://img.youtube.com/vi/' + id + '/1.jpg")', 'background-position': 'center center'})
                 .click(function () {
+                  
                   if (typeof ytplayer == 'undefined') {
-                    loadVideo(id);
+                    $("#message").hide();
+                    loadPlayer(id);
                   } else {
                     loadVideo(id);
                   }
+                  /* 
+                  loadVideo(id);
+                  */
+                  $.getJSON("https://gdata.youtube.com/feeds/api/videos/" + id + "?v=2&alt=json",
+                    function (data) {
+                      //var info = $('<div/>')
+                      //.css({'width': '480px', 'height': '20px', 'float': 'left', 'font-size': '20px'})
+                      //.html(data.entry.title.$t);
+                      //$(ytPlayer).after(info);
+                    }
+                  );
                 });
               $(div).hide();
               $(divQuery).after(div);
