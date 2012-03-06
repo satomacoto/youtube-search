@@ -21,12 +21,7 @@
 /*              GLOBALS               */
 /**************************************/
 
-::selection {
-	background: #ffb7b7; /* Safari */
-	}
-::-moz-selection {
-	background: #ffb7b7; /* Firefox */
-}
+textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #000; outline: 0px; }
 
 /**************************************/
 /*              HEADER                */

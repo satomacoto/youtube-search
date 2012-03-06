@@ -64,13 +64,18 @@ function loadPlayer(videoID) {
   // The element id of the Flash embed
   var atts = { id: "ytPlayer" };
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-  swfobject.embedSWF("http://www.youtube.com/v/" + videoID + 
-                     "?version=3&enablejsapi=1&playerapiid=player1&autoplay=1", 
-                     "videoDiv", "400", "240", "9", null, null, params, atts);
+  //swfobject.embedSWF("http://www.youtube.com/v/" + videoID + 
+  //                   "?version=3&enablejsapi=1&playerapiid=player1&autoplay=1", 
+  //                   "videoDiv", "400", "240", "9", null, null, params, atts);
+  swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+                     "version=3&enablejsapi=1&playerapiid=player1", 
+                     "videoDiv", "480", "240", "9", null, null, params, atts);
 }
 
 
 $().ready(function(){
+  loadPlayer();
+  $('#ytPlayer').hide();
   $('#form').submit(function(){
     $('#main').children('a').fadeOut(function(){
       $('#main').html('');
@@ -90,15 +95,15 @@ $().ready(function(){
         var entries = json.results;
         var ids = {};
         if(!entries) return;
+        $("#message").hide();
+        $("#ytPlayer").show();
         var divQuery = $('<div/>')
           .attr('class', 'thumbnail')
           .css({'width': '80px', 'height': '80px', 'float': 'left'})
           .css({'font-size': '40px', 'line-height': '40px', 'overflow': 'hidden', 'word-wrap': 'break-word'})
           //.css({'clear': 'both'})
           .html(query);
-        $(divQuery).hide();
-        $('#player').after(divQuery);
-        $(divQuery).fadeIn();
+        $(divQuery).hide().prependTo('#main').fadeIn();
         $.each(entries,function(){
           if(this.entities && this.entities.urls[0]) {
             var url = this.entities.urls[0].expanded_url;
@@ -116,8 +121,7 @@ $().ready(function(){
                 .css({'background-image': 'url("http://img.youtube.com/vi/' + id + '/1.jpg")', 'background-position': 'center center'})
                 .click(function () {
                   if (typeof ytplayer == 'undefined') {
-                    $("#message").hide();
-                    loadPlayer(id);
+                    loadVideo(id);
                   } else {
                     loadVideo(id);
                   }
