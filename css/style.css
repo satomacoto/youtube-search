@@ -22,6 +22,42 @@
 /**************************************/
 
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #000; outline: 0px; }
+.query {
+  width:160px;
+  float:left;
+}
+.items {
+  width:800px;
+  float:left;
+}
+.item {
+  width: 80px;
+  height: 80px;
+  background-position:center center;
+  background-repeat:no-repeat;
+}
+.thumbnail {
+  float: left;
+  font-size: 40px;
+  line-height: 40px;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+#main {
+  width: 960px;
+}
+#form {
+  margin-bottom: 0px;
+}
+#player {
+  width:560px;
+  height:240px;
+  float:left;
+}
+#message {
+  width:400px;
+  float:left;
+}
 
 /**************************************/
 /*              HEADER                */
